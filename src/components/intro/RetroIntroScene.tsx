@@ -339,7 +339,7 @@ function Beat2SasquatchIntro({ onComplete, onStepComplete, step }: BeatProps) {
         <WizardPortrait
           materializing={true}
           onMaterialize={handleMaterialize}
-          size="large"
+          size="medium"
           glow={true}
           animated={portraitReady}
         />
