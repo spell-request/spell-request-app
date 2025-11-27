@@ -260,3 +260,86 @@
     display: none;
   }
 }
+
+/* ============================================
+   Retro Terminal Intro Mode
+   ============================================ */
+
+.intro-page--retro {
+  background: #000;
+}
+
+.intro-page--retro .intro-page__corner,
+.intro-page--retro .intro-page__vignette,
+.intro-page--retro .intro-page__overlay {
+  display: none;
+}
+
+/* ============================================
+   Skip Hint
+   ============================================ */
+
+.intro-page__skip-hint {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  color: #004400;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.875rem;
+  z-index: 1001;
+  opacity: 0;
+  animation: skip-hint-fade 0.5s ease-out 3s forwards;
+}
+
+@keyframes skip-hint-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.intro-page__skip-hint:hover {
+  opacity: 1;
+  color: #00ff00;
+}
+
+/* ============================================
+   Legacy Placeholder (fallback)
+   ============================================ */
+
+.intro-page__legacy-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #00ff00;
+  font-family: 'VT323', 'Courier New', monospace;
+  text-align: center;
+}
+
+.intro-page__legacy-placeholder h1 {
+  font-size: 4rem;
+  letter-spacing: 0.5em;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px rgba(0, 255, 0, 0.5);
+  margin-bottom: 2rem;
+}
+
+.intro-page__legacy-placeholder p {
+  font-size: 1.5rem;
+  color: #00cc00;
+  animation: pulse-text 2s ease-in-out infinite;
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

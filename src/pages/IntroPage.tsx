@@ -1,16 +1,19 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SceneManager } from '@/components/three/SceneManager.tsx';
-import { IntroScene } from '@/components/three/IntroScene.tsx';
+import { RetroIntroScene } from '@/components/intro';
 import { useKeyboardInput, Keys } from '@/hooks/useKeyboardInput.ts';
 import { useAuthStore } from '@/stores/authStore.ts';
 import './IntroPage.css';
+
+// Feature flag to toggle between old and new intro
+const USE_RETRO_INTRO = true;
 
 export function IntroPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [pageReady, setPageReady] = useState(false);
+  const [skipIntro, setSkipIntro] = useState(false);
 
   // Entrance animation trigger
   useEffect(() => {
@@ -18,7 +21,8 @@ export function IntroPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleEnter = useCallback(() => {
+  // Handle navigation after intro completes
+  const handleIntroComplete = useCallback(() => {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
@@ -33,12 +37,60 @@ export function IntroPage() {
     }, 300);
   }, [navigate, isAuthenticated, isTransitioning]);
 
+  // Legacy handler for non-retro intro
+  const handleEnter = useCallback(() => {
+    if (USE_RETRO_INTRO) {
+      // In retro mode, Enter/Space skips the intro
+      setSkipIntro(true);
+      handleIntroComplete();
+    } else {
+      handleIntroComplete();
+    }
+  }, [handleIntroComplete]);
+
   // Keyboard shortcuts
   useKeyboardInput({
     [Keys.Enter]: handleEnter,
     [Keys.Space]: handleEnter,
+    [Keys.Escape]: () => setSkipIntro(true), // Allow Escape to skip
   });
 
+  // Retro terminal intro mode
+  if (USE_RETRO_INTRO) {
+    return (
+      <div
+        className={`intro-page intro-page--retro ${pageReady ? 'intro-page--ready' : ''} ${
+          isTransitioning ? 'intro-page--transitioning' : ''
+        }`}
+        role="main"
+        aria-label="Grimoire Introduction"
+      >
+        {/* Screen reader announcement */}
+        <div className="visually-hidden" role="status" aria-live="polite">
+          Welcome to Grimoire. The arcane terminal is initializing. Press Escape to skip.
+        </div>
+
+        {/* Retro CRT Terminal Intro */}
+        <RetroIntroScene
+          onComplete={handleIntroComplete}
+          skip={skipIntro}
+        />
+
+        {/* Skip hint */}
+        <div className="intro-page__skip-hint" aria-hidden="true">
+          Press ESC to skip
+        </div>
+
+        {/* Hidden instructions for screen readers */}
+        <p id="intro-instructions" className="visually-hidden">
+          This is the introduction page for Grimoire, a spell learning application.
+          The intro sequence will play automatically. Press Escape to skip.
+        </p>
+      </div>
+    );
+  }
+
+  // Legacy Three.js intro (kept for fallback)
   return (
     <div
       className={`intro-page ${pageReady ? 'intro-page--ready' : ''} ${
@@ -52,10 +104,11 @@ export function IntroPage() {
         Welcome to Grimoire. Press Enter or Space to begin your journey.
       </div>
 
-      {/* Three.js Scene */}
-      <SceneManager scene="intro">
-        <IntroScene onEnterPressed={handleEnter} />
-      </SceneManager>
+      {/* Placeholder for legacy scene - import if needed */}
+      <div className="intro-page__legacy-placeholder">
+        <h1>GRIMOIRE</h1>
+        <p>Press Enter to Begin</p>
+      </div>
 
       {/* Interactive overlay with enhanced accessibility */}
       <div
