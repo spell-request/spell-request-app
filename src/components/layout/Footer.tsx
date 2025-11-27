@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer__content">
         <span className="footer__text">
-          GRIMOIRE v1.0 | {currentYear} | Learn to code through magic
+          SPELL REQUEST v1.0 | {currentYear} | Learn to code through magic
         </span>
         <div className="footer__links">
           <a

@@ -63,11 +63,11 @@ export function IntroPage() {
           isTransitioning ? 'intro-page--transitioning' : ''
         }`}
         role="main"
-        aria-label="Grimoire Introduction"
+        aria-label="Spell Request Introduction"
       >
         {/* Screen reader announcement */}
         <div className="visually-hidden" role="status" aria-live="polite">
-          Welcome to Grimoire. The arcane terminal is initializing. Press Escape to skip.
+          Welcome to Spell Request. The arcane terminal is initializing. Press Escape to skip.
         </div>
 
         {/* Retro CRT Terminal Intro */}
@@ -83,7 +83,7 @@ export function IntroPage() {
 
         {/* Hidden instructions for screen readers */}
         <p id="intro-instructions" className="visually-hidden">
-          This is the introduction page for Grimoire, a spell learning application.
+          This is the introduction page for Spell Request, a spell learning application.
           The intro sequence will play automatically. Press Escape to skip.
         </p>
       </div>
@@ -97,16 +97,16 @@ export function IntroPage() {
         isTransitioning ? 'intro-page--transitioning' : ''
       }`}
       role="main"
-      aria-label="Grimoire Introduction"
+      aria-label="Spell Request Introduction"
     >
       {/* Screen reader announcement */}
       <div className="visually-hidden" role="status" aria-live="polite">
-        Welcome to Grimoire. Press Enter or Space to begin your journey.
+        Welcome to Spell Request. Press Enter or Space to begin your journey.
       </div>
 
       {/* Placeholder for legacy scene - import if needed */}
       <div className="intro-page__legacy-placeholder">
-        <h1>GRIMOIRE</h1>
+        <h1>SPELL REQUEST</h1>
         <p>Press Enter to Begin</p>
       </div>
 
@@ -131,7 +131,7 @@ export function IntroPage() {
 
       {/* Hidden instructions for screen readers */}
       <p id="intro-instructions" className="visually-hidden">
-        This is the introduction page for Grimoire, a spell learning application.
+        This is the introduction page for Spell Request, a spell learning application.
         Use Enter or Space key, or click anywhere on the screen to proceed.
       </p>
 
