@@ -14,6 +14,22 @@ export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState('');
+  const [touchedFields, setTouchedFields] = useState({ email: false, password: false });
+
+  // Email validation
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  // Password validation
+  const isValidPassword = (password: string) => {
+    return password.length >= 6;
+  };
+
+  // Handle field blur to mark as touched
+  const handleBlur = (field: 'email' | 'password') => {
+    setTouchedFields(prev => ({ ...prev, [field]: true }));
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -58,24 +74,38 @@ export function LoginPage() {
 
         {/* Login form */}
         <form onSubmit={handleSubmit} className="auth-page__form">
-          <Input
-            type="email"
-            label="Email"
-            placeholder="wizard@grimoire.dev"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            autoFocus
-          />
+          <div
+            className={`auth-page__input-wrapper ${
+              touchedFields.email && email && isValidEmail(email) ? 'auth-page__input-wrapper--valid' : ''
+            }`}
+          >
+            <Input
+              type="email"
+              label="Email"
+              placeholder="wizard@grimoire.dev"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => handleBlur('email')}
+              autoComplete="email"
+              autoFocus
+            />
+          </div>
 
-          <Input
-            type="password"
-            label="Password"
-            placeholder="Enter your secret phrase"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-          />
+          <div
+            className={`auth-page__input-wrapper ${
+              touchedFields.password && password && isValidPassword(password) ? 'auth-page__input-wrapper--valid' : ''
+            }`}
+          >
+            <Input
+              type="password"
+              label="Password"
+              placeholder="Enter your secret phrase"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => handleBlur('password')}
+              autoComplete="current-password"
+            />
+          </div>
 
           {(formError || error) && (
             <div className="auth-page__error">

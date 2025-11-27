@@ -10,12 +10,11 @@
  * BEAT 6: Final preparation and transition
  */
 
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { CRTScreen } from './CRTScreen';
 import { ASCIIText, StaticNoise } from './ASCIIText';
-import { TerminalBox, ProgressBar } from './TerminalBox';
+import { ProgressBar } from './TerminalBox';
 import { WizardPortrait, WizardDialogue } from './WizardPortrait';
-import { GrimoireAnimation } from './GrimoireAnimation';
 import {
   RUNE_GLYPHS,
   generateStaticLine,

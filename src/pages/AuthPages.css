@@ -26,6 +26,85 @@
   }
 }
 
+/* ============================================
+   Magical Particles Animation
+   ============================================ */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(var(--drift-x, 0));
+    opacity: 0;
+  }
+}
+
+@keyframes particle-glow {
+  0%, 100% {
+    filter: brightness(1) blur(2px);
+  }
+  50% {
+    filter: brightness(1.5) blur(3px);
+  }
+}
+
+/* ============================================
+   Form Entrance Animation
+   ============================================ */
+@keyframes form-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ============================================
+   Torch Flicker Glow Animation
+   ============================================ */
+@keyframes torch-flicker {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.15),
+      0 0 40px rgba(0, 255, 0, 0.1),
+      0 0 60px rgba(0, 170, 0, 0.05),
+      inset 0 0 20px rgba(0, 255, 0, 0.05);
+  }
+  25% {
+    box-shadow:
+      0 0 25px rgba(0, 255, 0, 0.2),
+      0 0 50px rgba(0, 255, 0, 0.15),
+      0 0 75px rgba(0, 170, 0, 0.08),
+      inset 0 0 25px rgba(0, 255, 0, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(0, 255, 0, 0.12),
+      0 0 35px rgba(0, 255, 0, 0.08),
+      0 0 55px rgba(0, 170, 0, 0.04),
+      inset 0 0 18px rgba(0, 255, 0, 0.04);
+  }
+  75% {
+    box-shadow:
+      0 0 23px rgba(0, 255, 0, 0.18),
+      0 0 45px rgba(0, 255, 0, 0.12),
+      0 0 70px rgba(0, 170, 0, 0.07),
+      inset 0 0 22px rgba(0, 255, 0, 0.07);
+  }
+}
+
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -91,12 +170,153 @@
   gap: var(--spacing-xl);
   position: relative;
   z-index: 2;
+  animation: form-entrance 800ms ease-out;
+}
+
+/* ============================================
+   Magical Particles
+   ============================================ */
+.auth-page__container::before,
+.auth-page__container::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: float-up 8s ease-in infinite, particle-glow 2s ease-in-out infinite;
+}
+
+.auth-page__container::before {
+  left: 10%;
+  bottom: -20px;
+  animation-delay: 0s, 0.5s;
+  --drift-x: 30px;
+}
+
+.auth-page__container::after {
+  right: 15%;
+  bottom: -20px;
+  animation-delay: 1.5s, 1s;
+  --drift-x: -40px;
+}
+
+/* Additional particles using pseudo-elements on form */
+.auth-page__form::before,
+.auth-page__form::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: float-up 10s ease-in infinite, particle-glow 3s ease-in-out infinite;
+}
+
+.auth-page__form::before {
+  left: -20px;
+  bottom: 20%;
+  animation-delay: 2s, 0s;
+  --drift-x: 50px;
+}
+
+.auth-page__form::after {
+  right: -15px;
+  bottom: 40%;
+  animation-delay: 3.5s, 1.5s;
+  --drift-x: -30px;
+}
+
+/* Logo particles */
+.auth-page__logo::before,
+.auth-page__logo::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-up 9s ease-in infinite, particle-glow 2.5s ease-in-out infinite;
+}
+
+.auth-page__logo::before {
+  left: -10px;
+  bottom: -10px;
+  animation-delay: 4s, 0.8s;
+  --drift-x: 20px;
+}
+
+.auth-page__logo::after {
+  right: -10px;
+  bottom: -10px;
+  animation-delay: 5.5s, 2s;
+  --drift-x: -25px;
+}
+
+/* Message particles */
+.auth-page__message::before,
+.auth-page__message::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-up 11s ease-in infinite, particle-glow 2.8s ease-in-out infinite;
+}
+
+.auth-page__message::before {
+  left: 5%;
+  bottom: -5px;
+  animation-delay: 6s, 1.2s;
+  --drift-x: 35px;
+}
+
+.auth-page__message::after {
+  right: 10%;
+  bottom: -5px;
+  animation-delay: 7s, 0.3s;
+  --drift-x: -20px;
+}
+
+/* Footer particles */
+.auth-page__footer::before,
+.auth-page__footer::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-up 12s ease-in infinite, particle-glow 3.2s ease-in-out infinite;
+}
+
+.auth-page__footer::before {
+  left: 20%;
+  bottom: -8px;
+  animation-delay: 1s, 0.7s;
+  --drift-x: 15px;
+}
+
+.auth-page__footer::after {
+  right: 25%;
+  bottom: -8px;
+  animation-delay: 2.5s, 1.8s;
+  --drift-x: -18px;
 }
 
 /* Logo */
 .auth-page__logo {
   text-decoration: none;
   text-align: center;
+  position: relative;
 }
 
 .auth-page__logo h1 {
@@ -112,6 +332,7 @@
   color: var(--color-text-secondary);
   line-height: var(--line-height-loose);
   min-height: 48px;
+  position: relative;
 }
 
 /* Form */
@@ -127,6 +348,8 @@
   border: 1px solid var(--color-border-dim);
   border-radius: var(--radius-md);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: torch-flicker 4s ease-in-out infinite;
 }
 
 /* Error message */
@@ -147,6 +370,45 @@
   font-weight: bold;
 }
 
+/* ============================================
+   Input Wrappers with Validation
+   ============================================ */
+.auth-page__input-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Enhanced focus effect for inputs */
+.auth-page__input-wrapper:focus-within .input-label {
+  color: var(--color-primary);
+  text-shadow: 0 0 8px var(--color-primary-glow);
+  transition: all var(--transition-fast);
+}
+
+.auth-page__input-wrapper:focus-within .input-field {
+  border-color: var(--color-primary);
+  box-shadow:
+    0 0 8px rgba(0, 255, 0, 0.3),
+    0 0 16px rgba(0, 255, 0, 0.2),
+    0 0 24px rgba(0, 170, 0, 0.1),
+    inset 0 0 8px rgba(0, 255, 0, 0.1);
+}
+
+/* Valid input state */
+.auth-page__input-wrapper--valid .input-field {
+  border-color: rgba(0, 255, 0, 0.4);
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.15);
+}
+
+.auth-page__input-wrapper--valid .input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow:
+    0 0 8px rgba(0, 255, 0, 0.3),
+    0 0 16px rgba(0, 255, 0, 0.2),
+    0 0 24px rgba(0, 170, 0, 0.1),
+    inset 0 0 8px rgba(0, 255, 0, 0.1);
+}
+
 /* Footer - links */
 .auth-page__footer {
   display: flex;
@@ -154,6 +416,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   text-align: center;
+  position: relative;
 }
 
 .auth-page__footer-text {
@@ -239,5 +502,40 @@
   .auth-page::after {
     animation: none;
     opacity: 0.9;
+  }
+
+  /* Disable all particle animations */
+  .auth-page__container::before,
+  .auth-page__container::after,
+  .auth-page__form::before,
+  .auth-page__form::after,
+  .auth-page__logo::before,
+  .auth-page__logo::after,
+  .auth-page__message::before,
+  .auth-page__message::after,
+  .auth-page__footer::before,
+  .auth-page__footer::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  /* Simplify form entrance animation */
+  .auth-page__container {
+    animation: none;
+  }
+
+  /* Disable torch flicker */
+  .auth-page__form {
+    animation: none;
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.15),
+      0 0 40px rgba(0, 255, 0, 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Simplify focus transitions */
+  .auth-page__input-wrapper:focus-within .input-label,
+  .auth-page__input-wrapper:focus-within .input-field {
+    transition: none;
   }
 }
