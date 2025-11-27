@@ -44,7 +44,7 @@ export function LoginPage() {
         {/* Logo */}
         <Link to="/" className="auth-page__logo">
           <GlowText as="h1" intensity="high" pulse>
-            GRIMOIRE
+            SPELL REQUEST
           </GlowText>
         </Link>
 
