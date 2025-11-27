@@ -1,0 +1,359 @@
+/* ============================================
+   SasquatchPortrait Component Styles
+   RPG-style Sasquatch portrait with magical effects
+   ============================================ */
+
+/* ============================================
+   Base Portrait Container
+   ============================================ */
+
+.sasquatch-portrait {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Size variants */
+.sasquatch-portrait--small {
+  --portrait-size: 150px;
+  --font-scale: 0.8;
+}
+
+.sasquatch-portrait--medium {
+  --portrait-size: 200px;
+  --font-scale: 1;
+}
+
+.sasquatch-portrait--large {
+  --portrait-size: 280px;
+  --font-scale: 1.2;
+}
+
+/* ============================================
+   Materialization Phases
+   ============================================ */
+
+.sasquatch-portrait--hidden .sasquatch-portrait__frame,
+.sasquatch-portrait--hidden .sasquatch-portrait__nameplate {
+  opacity: 0;
+}
+
+.sasquatch-portrait--particles .sasquatch-portrait__frame,
+.sasquatch-portrait--particles .sasquatch-portrait__nameplate {
+  opacity: 0.1;
+}
+
+.sasquatch-portrait--particles .sasquatch-portrait__particles {
+  opacity: 1;
+}
+
+.sasquatch-portrait--forming .sasquatch-portrait__frame {
+  opacity: 0.6;
+}
+
+.sasquatch-portrait--forming .sasquatch-portrait__nameplate {
+  opacity: 0.3;
+}
+
+.sasquatch-portrait--visible .sasquatch-portrait__frame,
+.sasquatch-portrait--visible .sasquatch-portrait__nameplate {
+  opacity: 1;
+}
+
+.sasquatch-portrait--visible .sasquatch-portrait__particles {
+  opacity: 0.3;
+}
+
+/* ============================================
+   Magical Particles
+   ============================================ */
+
+.sasquatch-portrait__particles {
+  position: absolute;
+  width: calc(var(--portrait-size) * 1.5);
+  height: calc(var(--portrait-size) * 1.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.sasquatch-portrait__particle {
+  position: absolute;
+  color: #00ff00;
+  font-size: calc(1rem * var(--font-scale));
+  opacity: 0.6;
+  animation: sasquatch-particle-orbit 4s ease-in-out infinite;
+  animation-delay: var(--particle-delay);
+  text-shadow: 0 0 8px #00ff00;
+}
+
+@keyframes sasquatch-particle-orbit {
+  0%, 100% {
+    transform: translate(var(--particle-x), var(--particle-y)) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(
+      calc(var(--particle-x) * 0.7),
+      calc(var(--particle-y) * 0.7)
+    ) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   Portrait Frame
+   ============================================ */
+
+.sasquatch-portrait__frame {
+  position: relative;
+  width: var(--portrait-size);
+  height: var(--portrait-size);
+  border: 3px solid #00aa00;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 40, 0, 0.8) 0%,
+    rgba(0, 20, 0, 0.9) 100%
+  );
+  transition: opacity 0.8s ease, transform 0.3s ease;
+  overflow: hidden;
+}
+
+.sasquatch-portrait--glow .sasquatch-portrait__frame {
+  box-shadow:
+    0 0 15px rgba(0, 255, 0, 0.3),
+    0 0 30px rgba(0, 255, 0, 0.15),
+    inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+/* Frame corners */
+.sasquatch-portrait__frame-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: #00ff00;
+  border-style: solid;
+  z-index: 2;
+}
+
+.sasquatch-portrait__frame-corner--tl {
+  top: -3px;
+  left: -3px;
+  border-width: 3px 0 0 3px;
+}
+
+.sasquatch-portrait__frame-corner--tr {
+  top: -3px;
+  right: -3px;
+  border-width: 3px 3px 0 0;
+}
+
+.sasquatch-portrait__frame-corner--bl {
+  bottom: -3px;
+  left: -3px;
+  border-width: 0 0 3px 3px;
+}
+
+.sasquatch-portrait__frame-corner--br {
+  bottom: -3px;
+  right: -3px;
+  border-width: 0 3px 3px 0;
+}
+
+/* ============================================
+   Portrait Image
+   ============================================ */
+
+.sasquatch-portrait__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter:
+    sepia(20%)
+    hue-rotate(70deg)
+    saturate(0.8)
+    brightness(0.9)
+    contrast(1.1);
+  transition: filter 0.5s ease;
+}
+
+.sasquatch-portrait--glow .sasquatch-portrait__image {
+  filter:
+    sepia(15%)
+    hue-rotate(70deg)
+    saturate(0.9)
+    brightness(0.95)
+    contrast(1.1)
+    drop-shadow(0 0 8px rgba(0, 255, 0, 0.3));
+}
+
+/* Scanline overlay effect on image */
+.sasquatch-portrait__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   Name Plate
+   ============================================ */
+
+.sasquatch-portrait__nameplate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #006600;
+  background: rgba(0, 20, 0, 0.9);
+  transition: opacity 0.8s ease;
+}
+
+.sasquatch-portrait__title {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: calc(0.75rem * var(--font-scale));
+  color: #00aa00;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.sasquatch-portrait__name {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: calc(1.4rem * var(--font-scale));
+  color: #00ff00;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+/* ============================================
+   Magical Aura
+   ============================================ */
+
+.sasquatch-portrait__aura {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 255, 0, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.sasquatch-portrait--glow .sasquatch-portrait__aura {
+  opacity: 1;
+}
+
+.sasquatch-portrait--animated .sasquatch-portrait__aura {
+  animation: sasquatch-aura-pulse 4s ease-in-out infinite;
+}
+
+@keyframes sasquatch-aura-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* ============================================
+   Animation State
+   ============================================ */
+
+.sasquatch-portrait--animated .sasquatch-portrait__frame {
+  animation: sasquatch-frame-float 6s ease-in-out infinite;
+}
+
+@keyframes sasquatch-frame-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ============================================
+   Sasquatch Dialogue
+   ============================================ */
+
+.sasquatch-dialogue {
+  font-family: 'VT323', 'Courier New', monospace;
+  max-width: 55ch;
+  line-height: 1.6;
+}
+
+.sasquatch-dialogue__speaker {
+  color: #00cc00;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.3);
+}
+
+.sasquatch-dialogue__text {
+  color: #00ff00;
+  font-size: 1.15rem;
+  padding-left: 1rem;
+}
+
+.sasquatch-dialogue__quote {
+  color: #00aa00;
+  font-size: 1.2rem;
+}
+
+.sasquatch-dialogue__cursor {
+  display: inline-block;
+  color: #00ff00;
+  margin-left: 2px;
+}
+
+.sasquatch-dialogue__cursor--blink {
+  animation: sasquatch-cursor-blink 1s step-end infinite;
+}
+
+@keyframes sasquatch-cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .sasquatch-portrait__particle,
+  .sasquatch-portrait--animated .sasquatch-portrait__aura,
+  .sasquatch-portrait--animated .sasquatch-portrait__frame,
+  .sasquatch-dialogue__cursor--blink {
+    animation: none;
+  }
+
+  .sasquatch-portrait--animated .sasquatch-portrait__aura {
+    opacity: 0.4;
+  }
+}

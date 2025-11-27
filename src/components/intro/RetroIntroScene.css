@@ -1,0 +1,546 @@
+/* ============================================
+   RetroIntroScene Styles
+   RPG-style intro sequence
+   ============================================ */
+
+/* ============================================
+   Base Container
+   ============================================ */
+
+.retro-intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 1000;
+}
+
+.retro-intro__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.retro-intro__complete {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* ============================================
+   BEAT 1: Boot Sequence
+   ============================================ */
+
+.beat-boot {
+  width: 100%;
+  max-width: 65ch;
+}
+
+.beat-boot__static {
+  margin-bottom: 2rem;
+  opacity: 0.7;
+}
+
+.beat-boot__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.beat-boot__message {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.beat-boot__message--info {
+  color: #00ff00;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.beat-boot__message--loading {
+  color: #00cc00;
+}
+
+.beat-boot__message--success {
+  color: #00ff00;
+}
+
+.beat-boot__message--success:last-child {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+/* ============================================
+   BEAT 2: Gonzo Introduction
+   ============================================ */
+
+.beat-gonzo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.beat-gonzo__avatar {
+  font-size: 1.4rem;
+  line-height: 1.1;
+  animation: avatar-flicker 3s ease-in-out infinite;
+}
+
+@keyframes avatar-flicker {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.96;
+    filter: brightness(1.05);
+  }
+  75% {
+    opacity: 0.98;
+    filter: brightness(0.98);
+  }
+}
+
+.beat-gonzo__dialogue {
+  max-width: 55ch;
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* ============================================
+   BEAT 3: Profile Initialization
+   ============================================ */
+
+.beat-profile {
+  width: 100%;
+  max-width: 60ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.beat-profile__header {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.beat-profile__checks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+.system-check {
+  display: flex;
+  font-size: 1rem;
+  color: #006600;
+  transition: color 0.3s ease;
+}
+
+.system-check--pending {
+  color: #004400;
+}
+
+.system-check--checking {
+  color: #00cc00;
+}
+
+.system-check--checking .system-check__status {
+  animation: checking-blink 0.5s ease-in-out infinite;
+}
+
+@keyframes checking-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.system-check--ok {
+  color: #00ff00;
+}
+
+.system-check--ok .system-check__status {
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
+}
+
+.system-check--warn {
+  color: #ffaa00;
+}
+
+.system-check__name {
+  min-width: 28ch;
+}
+
+.system-check__dots {
+  color: #003300;
+  flex: 1;
+  overflow: hidden;
+}
+
+.system-check__status {
+  min-width: 8ch;
+  text-align: right;
+}
+
+.beat-profile__progress {
+  margin-top: 1rem;
+}
+
+/* ============================================
+   BEAT 4: Grimoire Loading
+   ============================================ */
+
+.beat-grimoire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.grimoire-content {
+  padding: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.grimoire-status {
+  color: #00ff00;
+}
+
+.grimoire-version {
+  color: #00cc00;
+}
+
+.grimoire-spells {
+  color: #00aa00;
+  margin-bottom: 1rem;
+}
+
+.grimoire-loading {
+  margin-top: 0.5rem;
+  color: #00ff00;
+}
+
+.beat-grimoire__dialogue {
+  max-width: 55ch;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   BEAT 5: Rune Calibration
+   ============================================ */
+
+.beat-runes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 60ch;
+}
+
+.beat-runes__header {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.beat-runes__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.rune-check {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.rune-check--pending {
+  color: #004400;
+}
+
+.rune-check--testing {
+  color: #00cc00;
+}
+
+.rune-check--testing .rune-check__symbol {
+  animation: rune-testing 0.3s ease-in-out infinite;
+}
+
+@keyframes rune-testing {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    text-shadow: 0 0 12px rgba(0, 255, 0, 0.8);
+  }
+}
+
+.rune-check--pass {
+  color: #00ff00;
+}
+
+.rune-check--pass .rune-check__symbol {
+  text-shadow:
+    0 0 8px #00ff00,
+    0 0 16px rgba(0, 255, 0, 0.5);
+  animation: rune-pass 0.5s ease-out;
+}
+
+@keyframes rune-pass {
+  0% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.rune-check--fail {
+  color: #ff4444;
+}
+
+.rune-check--fail .rune-check__symbol {
+  text-shadow:
+    0 0 8px #ff4444,
+    0 0 16px rgba(255, 68, 68, 0.5);
+  animation: rune-fail 0.3s ease-out;
+}
+
+@keyframes rune-fail {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.rune-check__symbol {
+  font-size: 1.5rem;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.rune-check__name {
+  flex: 1;
+}
+
+.rune-check__status {
+  font-size: 0.9rem;
+  min-width: 16ch;
+  text-align: right;
+}
+
+.beat-runes__summary {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #003300;
+}
+
+.beat-runes__counts {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.rune-count {
+  font-size: 1rem;
+}
+
+.rune-count--pass {
+  color: #00ff00;
+}
+
+.rune-count--fail {
+  color: #ff4444;
+}
+
+.beat-runes__dialogue {
+  max-width: 55ch;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   BEAT 6: Final Preparation
+   ============================================ */
+
+.beat-final {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 60ch;
+}
+
+.beat-final__message {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.beat-final__command {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #003300;
+  background: rgba(0, 20, 0, 0.3);
+}
+
+.beat-final__initiate {
+  margin-top: 1rem;
+}
+
+.beat-final__initiate .initiate-text {
+  font-size: 1.3rem;
+  animation: initiate-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes initiate-glow {
+  0% {
+    text-shadow:
+      0 0 8px #00ff00,
+      0 0 16px rgba(0, 255, 0, 0.4);
+  }
+  100% {
+    text-shadow:
+      0 0 16px #00ff00,
+      0 0 32px rgba(0, 255, 0, 0.6),
+      0 0 48px rgba(0, 255, 0, 0.3);
+  }
+}
+
+/* ============================================
+   Floating Runes Background
+   ============================================ */
+
+.floating-runes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-runes__rune {
+  position: absolute;
+  color: #003300;
+  font-size: 1.5rem;
+  opacity: 0.25;
+  animation: float-rune 5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes float-rune {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-12px) rotate(5deg);
+    opacity: 0.35;
+  }
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+  .retro-intro__container {
+    padding: 1rem;
+  }
+
+  .beat-boot,
+  .beat-profile,
+  .beat-runes,
+  .beat-final {
+    max-width: 100%;
+  }
+
+  .beat-boot__message,
+  .system-check,
+  .rune-check {
+    font-size: 0.9rem;
+  }
+
+  .beat-gonzo__avatar {
+    font-size: 1.1rem;
+  }
+
+  .system-check__name {
+    min-width: 20ch;
+  }
+
+  .rune-check__symbol {
+    font-size: 1.2rem;
+  }
+
+  .beat-runes__counts {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .beat-gonzo__avatar {
+    font-size: 0.9rem;
+  }
+
+  .system-check {
+    flex-wrap: wrap;
+  }
+
+  .system-check__dots {
+    display: none;
+  }
+
+  .rune-check {
+    flex-wrap: wrap;
+  }
+
+  .rune-check__status {
+    width: 100%;
+    text-align: left;
+    margin-left: 3ch;
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .beat-gonzo__avatar,
+  .system-check--checking .system-check__status,
+  .rune-check--testing .rune-check__symbol,
+  .rune-check--pass .rune-check__symbol,
+  .rune-check--fail .rune-check__symbol,
+  .beat-final__initiate .initiate-text,
+  .floating-runes__rune {
+    animation: none;
+  }
+}

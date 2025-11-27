@@ -1,0 +1,222 @@
+/* ============================================
+   TerminalBox Component Styles
+   Self-drawing ASCII boxes
+   ============================================ */
+
+/* ============================================
+   Base Terminal Box
+   ============================================ */
+
+.terminal-box {
+  font-family: 'VT323', 'Courier New', monospace;
+  color: #00ff00;
+  font-size: 1rem;
+  line-height: 1.3;
+  width: var(--box-width, 40ch);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.terminal-box--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Glow Effect
+   ============================================ */
+
+.terminal-box--glow {
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
+}
+
+.terminal-box--glow.terminal-box--complete {
+  text-shadow:
+    0 0 2px #00ff00,
+    0 0 6px rgba(0, 255, 0, 0.4);
+}
+
+/* ============================================
+   Slide Animations
+   ============================================ */
+
+.terminal-box--slide-left {
+  transform: translateX(-20px);
+}
+
+.terminal-box--slide-left.terminal-box--visible {
+  transform: translateX(0);
+}
+
+.terminal-box--slide-right {
+  transform: translateX(20px);
+}
+
+.terminal-box--slide-right.terminal-box--visible {
+  transform: translateX(0);
+}
+
+.terminal-box--slide-top {
+  transform: translateY(-20px);
+}
+
+.terminal-box--slide-top.terminal-box--visible {
+  transform: translateY(0);
+}
+
+.terminal-box--slide-bottom {
+  transform: translateY(20px);
+}
+
+.terminal-box--slide-bottom.terminal-box--visible {
+  transform: translateY(0);
+}
+
+/* ============================================
+   Box Lines
+   ============================================ */
+
+.terminal-box__line {
+  white-space: pre;
+  min-height: 1.3em;
+}
+
+.terminal-box__line--top,
+.terminal-box__line--bottom {
+  color: #00ff00;
+}
+
+/* ============================================
+   Box Body
+   ============================================ */
+
+.terminal-box__body {
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  min-height: 2em;
+}
+
+.terminal-box__body--visible {
+  opacity: 1;
+}
+
+.terminal-box__border-left,
+.terminal-box__border-right {
+  flex-shrink: 0;
+}
+
+.terminal-box__content {
+  flex: 1;
+  padding: 0 0.5ch;
+  overflow: hidden;
+}
+
+/* ============================================
+   ProgressBar Component
+   ============================================ */
+
+.progress-bar {
+  font-family: 'VT323', 'Courier New', monospace;
+  color: #00ff00;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.progress-bar__label {
+  color: #00cc00;
+  min-width: 10ch;
+}
+
+.progress-bar__track {
+  white-space: pre;
+}
+
+.progress-bar__filled {
+  color: #00ff00;
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.6);
+}
+
+.progress-bar__empty {
+  color: #004400;
+  opacity: 0.6;
+}
+
+.progress-bar__percent {
+  min-width: 4ch;
+  text-align: right;
+}
+
+/* ============================================
+   CommandLine Component
+   ============================================ */
+
+.command-line {
+  font-family: 'VT323', 'Courier New', monospace;
+  color: #00ff00;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25em 0;
+}
+
+.command-line__prompt {
+  color: #00cc00;
+  margin-right: 0.5ch;
+  text-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
+}
+
+.command-line__input {
+  color: #00ff00;
+}
+
+.command-line__cursor {
+  display: inline-block;
+  color: #00ff00;
+  opacity: 1;
+}
+
+.command-line__cursor--blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-box {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .terminal-box--slide-left,
+  .terminal-box--slide-right,
+  .terminal-box--slide-top,
+  .terminal-box--slide-bottom {
+    transform: none;
+  }
+
+  .terminal-box__body {
+    opacity: 1;
+    transition: none;
+  }
+
+  .command-line__cursor--blink {
+    animation: none;
+    opacity: 1;
+  }
+}

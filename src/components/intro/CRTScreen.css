@@ -1,0 +1,349 @@
+/* ============================================
+   CRTScreen Component Styles
+   Retro CRT terminal with phosphor glow effects
+   ============================================ */
+
+.crt-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ============================================
+   Bezel Frame
+   ============================================ */
+
+.crt-screen__bezel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ============================================
+   Display Area
+   ============================================ */
+
+.crt-screen__display {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000800;
+  overflow: hidden;
+}
+
+/* ============================================
+   Content Area
+   ============================================ */
+
+.crt-screen__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  color: #00ff00;
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+.crt-screen--powered .crt-screen__content {
+  opacity: 1;
+}
+
+/* ============================================
+   Power On Animation
+   ============================================ */
+
+.crt-screen__warmup {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  z-index: 10;
+}
+
+.crt-screen__warmup-line {
+  width: 80%;
+  height: 2px;
+  background: #00ff00;
+  box-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 40px #00ff00;
+  animation: crt-warmup 0.8s ease-out forwards;
+}
+
+@keyframes crt-warmup {
+  0% {
+    width: 0;
+    height: 2px;
+    opacity: 1;
+  }
+  50% {
+    width: 60%;
+    height: 2px;
+    opacity: 1;
+  }
+  80% {
+    width: 100%;
+    height: 2px;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Scanlines Effect
+   ============================================ */
+
+.crt-screen__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.crt-screen--scanlines .crt-screen__scanlines {
+  opacity: 1;
+}
+
+/* ============================================
+   Screen Curvature
+   ============================================ */
+
+.crt-screen__curvature {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.crt-screen--curved .crt-screen__display {
+  border-radius: 20px;
+}
+
+/* ============================================
+   Phosphor Glow
+   ============================================ */
+
+.crt-screen__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.crt-screen--powered .crt-screen__glow {
+  opacity: 1;
+}
+
+/* Glow intensity levels */
+.crt-screen--glow-low .crt-screen__glow {
+  box-shadow: inset 0 0 60px rgba(0, 255, 0, 0.03);
+}
+
+.crt-screen--glow-medium .crt-screen__glow {
+  box-shadow:
+    inset 0 0 80px rgba(0, 255, 0, 0.05),
+    inset 0 0 120px rgba(0, 255, 0, 0.02);
+}
+
+.crt-screen--glow-high .crt-screen__glow {
+  box-shadow:
+    inset 0 0 100px rgba(0, 255, 0, 0.08),
+    inset 0 0 200px rgba(0, 255, 0, 0.04);
+}
+
+/* ============================================
+   Vignette Effect
+   ============================================ */
+
+.crt-screen__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+/* ============================================
+   Screen Flicker
+   ============================================ */
+
+.crt-screen--flicker .crt-screen__display {
+  animation: crt-flicker 0.15s infinite;
+}
+
+@keyframes crt-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.98;
+  }
+  75% {
+    opacity: 0.99;
+  }
+}
+
+/* ============================================
+   Glitch Effect
+   ============================================ */
+
+.crt-screen--glitch .crt-screen__content {
+  animation: crt-glitch 0.1s steps(2) infinite;
+}
+
+@keyframes crt-glitch {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    transform: translate(-2px, 1px);
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    transform: translate(2px, -1px);
+    filter: hue-rotate(-90deg);
+  }
+  75% {
+    transform: translate(-1px, -1px);
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Static glitch bar effect */
+.crt-screen--glitch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 255, 0, 0.8);
+  animation: static-bar 0.1s infinite;
+  z-index: 20;
+}
+
+@keyframes static-bar {
+  0% { top: 0%; }
+  25% { top: 25%; }
+  50% { top: 50%; }
+  75% { top: 75%; }
+  100% { top: 95%; }
+}
+
+/* ============================================
+   Static Lines
+   ============================================ */
+
+.crt-screen__static-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 255, 0, 0.3);
+  pointer-events: none;
+  z-index: 15;
+  animation: static-line-fade 0.1s ease-out forwards;
+}
+
+@keyframes static-line-fade {
+  0% {
+    opacity: 0.5;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.9);
+  }
+}
+
+/* ============================================
+   Screen Reflection
+   ============================================ */
+
+.crt-screen__reflection {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 50%;
+  bottom: 70%;
+  pointer-events: none;
+  z-index: 7;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 50%
+  );
+  border-radius: 50% 30% 30% 50%;
+}
+
+/* ============================================
+   Text Styling Inside CRT
+   ============================================ */
+
+.crt-screen__content * {
+  text-shadow:
+    0 0 2px #00ff00,
+    0 0 4px rgba(0, 255, 0, 0.5);
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-screen--flicker .crt-screen__display,
+  .crt-screen--glitch .crt-screen__content {
+    animation: none;
+  }
+
+  .crt-screen__warmup-line {
+    animation: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .crt-screen__static-line {
+    display: none;
+  }
+}
