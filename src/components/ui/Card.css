@@ -1,0 +1,88 @@
+/* ============================================
+   Card Component Styles
+   ============================================ */
+
+.card {
+  background: var(--color-bg-medium);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+/* Variants */
+.card--default {
+  background: var(--color-bg-medium);
+}
+
+.card--elevated {
+  background: var(--color-bg-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card--bordered {
+  background: transparent;
+  border: 2px solid var(--color-border);
+}
+
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(51, 255, 51, 0.1);
+}
+
+/* Glow Effect */
+.card--glow {
+  box-shadow:
+    0 0 5px var(--color-primary-glow),
+    inset 0 0 5px rgba(51, 255, 51, 0.05);
+}
+
+.card--glow:hover {
+  box-shadow:
+    0 0 10px var(--color-primary-glow),
+    0 0 20px var(--color-primary-glow),
+    inset 0 0 10px rgba(51, 255, 51, 0.1);
+}
+
+/* Card Parts */
+.card__header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-dim);
+}
+
+.card__content {
+  padding: var(--spacing-md);
+}
+
+.card__footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border-dim);
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+/* Card Title (for use within header) */
+.card__title {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.card__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* Card description (for use within content) */
+.card__description {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}

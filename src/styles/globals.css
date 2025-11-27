@@ -1,0 +1,284 @@
+/* ============================================
+   GRIMOIRE - Global Styles
+   Retro Terminal / CRT Aesthetic
+   ============================================ */
+
+/* Google Fonts - VT323 Retro Monospace */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+:root {
+  /* Primary - Phosphor Green */
+  --color-primary: #33FF33;
+  --color-primary-dim: #1a801a;
+  --color-primary-glow: rgba(51, 255, 51, 0.5);
+  --color-primary-dark: #0d400d;
+
+  /* Backgrounds */
+  --color-bg-dark: #0a0a0a;
+  --color-bg-medium: #121212;
+  --color-bg-light: #1a1a1a;
+  --color-bg-elevated: #1f1f1f;
+
+  /* Status Colors */
+  --color-success: #33FF33;
+  --color-error: #FF3333;
+  --color-warning: #FFAA33;
+  --color-info: #33AAFF;
+
+  /* Text */
+  --color-text-primary: #33FF33;
+  --color-text-secondary: #1a801a;
+  --color-text-muted: #0d400d;
+
+  /* Borders */
+  --color-border: #33FF33;
+  --color-border-dim: #1a801a;
+
+  /* Typography */
+  --font-mono: 'VT323', 'Courier New', monospace;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+  --font-size-4xl: 64px;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.8;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Shadows */
+  --shadow-glow: 0 0 10px var(--color-primary-glow);
+  --shadow-glow-lg: 0 0 20px var(--color-primary-glow);
+  --shadow-glow-xl: 0 0 30px var(--color-primary-glow);
+}
+
+/* Alternative Themes */
+.theme-amber {
+  --color-primary: #FFAA33;
+  --color-primary-dim: #805515;
+  --color-primary-glow: rgba(255, 170, 51, 0.5);
+  --color-primary-dark: #402a0d;
+  --color-text-primary: #FFAA33;
+  --color-text-secondary: #805515;
+  --color-text-muted: #402a0d;
+  --color-border: #FFAA33;
+  --color-border-dim: #805515;
+  --color-success: #FFAA33;
+}
+
+.theme-white {
+  --color-primary: #FFFFFF;
+  --color-primary-dim: #808080;
+  --color-primary-glow: rgba(255, 255, 255, 0.5);
+  --color-primary-dark: #404040;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #808080;
+  --color-text-muted: #404040;
+  --color-border: #FFFFFF;
+  --color-border-dim: #808080;
+  --color-success: #FFFFFF;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background: var(--color-bg-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: normal;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  letter-spacing: 4px;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  letter-spacing: 3px;
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  letter-spacing: 2px;
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  letter-spacing: 1px;
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: text-shadow var(--transition-fast);
+}
+
+a:hover {
+  text-shadow: var(--shadow-glow);
+}
+
+/* ============================================
+   Selection
+   ============================================ */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-bg-dark);
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-dim);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ============================================
+   Focus Styles
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-glow {
+  text-shadow: var(--shadow-glow);
+}
+
+.text-glow-lg {
+  text-shadow: var(--shadow-glow-lg);
+}
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
