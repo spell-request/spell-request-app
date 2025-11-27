@@ -1,0 +1,26 @@
+/* ============================================
+   SceneManager Component Styles
+   ============================================ */
+
+.scene-manager {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene-manager canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Allow pointer events on Three.js canvas when interactive */
+.scene-manager--interactive {
+  pointer-events: auto;
+}
+
+.scene-manager--interactive canvas {
+  pointer-events: auto;
+}

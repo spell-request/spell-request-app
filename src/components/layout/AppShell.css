@@ -1,0 +1,95 @@
+/* ============================================
+   AppShell Component Styles
+   ============================================ */
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-bg-dark);
+  overflow-x: hidden;
+}
+
+/* Background layer for Three.js scene */
+.app-shell__background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* UI layer - sits above Three.js */
+.app-shell__ui {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content area */
+.app-shell__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-shell__main--authenticated {
+  padding-top: 60px; /* TopBar height */
+  padding-bottom: 40px; /* Footer height */
+  min-height: calc(100vh - 100px);
+}
+
+/* Container for page content */
+.app-shell__content {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* CRT overlay styling - complement the CSS from crt.css */
+.app-shell .crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.app-shell .scanline {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(51, 255, 51, 0.06),
+    transparent
+  );
+  animation: scanline-move 8s linear infinite;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+@keyframes scanline-move {
+  0% {
+    top: -4px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-shell__main--authenticated {
+    padding-bottom: 60px; /* Taller footer on mobile */
+  }
+
+  .app-shell__content {
+    padding: var(--spacing-md);
+  }
+}
