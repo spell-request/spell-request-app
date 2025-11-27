@@ -1,0 +1,51 @@
+/* ============================================
+   TypingText Component Styles
+   ============================================ */
+
+.typing-text {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  display: inline;
+}
+
+.typing-text__cursor {
+  display: inline-block;
+  color: var(--color-primary);
+  animation: none;
+  margin-left: 1px;
+}
+
+.typing-text__cursor--blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Variant: Larger text */
+.typing-text--lg {
+  font-size: var(--font-size-lg);
+}
+
+.typing-text--xl {
+  font-size: var(--font-size-xl);
+}
+
+/* Variant: With glow */
+.typing-text--glow {
+  text-shadow:
+    0 0 5px var(--color-primary),
+    0 0 10px var(--color-primary);
+}
+
+.typing-text--glow .typing-text__cursor {
+  text-shadow:
+    0 0 5px var(--color-primary),
+    0 0 10px var(--color-primary);
+}

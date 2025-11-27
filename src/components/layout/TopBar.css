@@ -1,0 +1,150 @@
+/* ============================================
+   TopBar Component Styles
+   ============================================ */
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-lg);
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom: 1px solid var(--color-border-dim);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+
+/* Left section - Logo */
+.top-bar__left {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar__logo {
+  font-size: var(--font-size-xl);
+  letter-spacing: 4px;
+  text-decoration: none;
+}
+
+/* Center section - Navigation */
+.top-bar__center {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar__nav {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.top-bar__nav-link {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.top-bar__nav-link:hover {
+  color: var(--color-text-primary);
+  text-shadow: var(--shadow-glow);
+}
+
+.top-bar__nav-link.active {
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* Right section - Stats and actions */
+.top-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.top-bar__stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.top-bar__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+}
+
+.top-bar__stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.top-bar__stat-value {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  text-shadow: var(--shadow-glow);
+}
+
+.top-bar__rank {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
+.top-bar__rank-icon {
+  font-size: var(--font-size-lg);
+}
+
+.top-bar__rank-name {
+  font-size: var(--font-size-sm);
+  letter-spacing: 1px;
+}
+
+.top-bar__streak {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-warning);
+}
+
+.top-bar__streak-icon {
+  font-size: var(--font-size-lg);
+}
+
+.top-bar__streak-value {
+  font-size: var(--font-size-sm);
+}
+
+.top-bar__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 0 var(--spacing-md);
+  }
+
+  .top-bar__stats {
+    display: none;
+  }
+
+  .top-bar__center {
+    display: none;
+  }
+}

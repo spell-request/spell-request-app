@@ -1,0 +1,117 @@
+/* ============================================
+   GlowText Component Styles
+   ============================================ */
+
+.glow-text {
+  font-family: var(--font-mono);
+  display: inline-block;
+}
+
+/* Intensity Variants */
+.glow-text--low {
+  text-shadow: 0 0 5px currentColor;
+}
+
+.glow-text--medium {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor;
+}
+
+.glow-text--high {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+}
+
+/* Color Variants */
+.glow-text--primary {
+  color: var(--color-primary);
+}
+
+.glow-text--success {
+  color: var(--color-success);
+}
+
+.glow-text--warning {
+  color: var(--color-warning);
+}
+
+.glow-text--error {
+  color: var(--color-error);
+}
+
+/* Pulse Animation */
+.glow-text--pulse {
+  animation: glow-text-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-text-pulse {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.85;
+    filter: brightness(1.2);
+  }
+}
+
+/* Pulse with different intensities */
+.glow-text--low.glow-text--pulse {
+  animation: glow-text-pulse-low 2s ease-in-out infinite;
+}
+
+@keyframes glow-text-pulse-low {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 8px currentColor,
+      0 0 12px currentColor;
+  }
+}
+
+.glow-text--medium.glow-text--pulse {
+  animation: glow-text-pulse-medium 2s ease-in-out infinite;
+}
+
+@keyframes glow-text-pulse-medium {
+  0%, 100% {
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+}
+
+.glow-text--high.glow-text--pulse {
+  animation: glow-text-pulse-high 2s ease-in-out infinite;
+}
+
+@keyframes glow-text-pulse-high {
+  0%, 100% {
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor,
+      0 0 60px currentColor;
+  }
+}
