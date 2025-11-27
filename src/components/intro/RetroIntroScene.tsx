@@ -10,11 +10,12 @@
  * BEAT 6: Final preparation and transition
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { CRTScreen } from './CRTScreen';
 import { ASCIIText, StaticNoise } from './ASCIIText';
-import { TerminalBox, ProgressBar, CommandLine } from './TerminalBox';
+import { TerminalBox, ProgressBar } from './TerminalBox';
 import { WizardPortrait, WizardDialogue } from './WizardPortrait';
+import { GrimoireAnimation } from './GrimoireAnimation';
 import {
   RUNE_GLYPHS,
   generateStaticLine,
@@ -442,6 +443,7 @@ function Beat3ProfileInit({ onComplete, onStepComplete, step }: BeatProps) {
 
 // ============================================
 // BEAT 4: Grimoire System Loading
+// Enhanced with Three.js animated spellbook
 // ============================================
 
 function Beat4GrimoireLoad({ onComplete, onStepComplete, step }: BeatProps) {
@@ -456,6 +458,16 @@ function Beat4GrimoireLoad({ onComplete, onStepComplete, step }: BeatProps) {
     'Validating grimoire checksum...',
     'GRIMOIRE READY',
   ];
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
+  // Calculate current loading step for animation (0-indexed)
+  const currentLoadingStep = step > 0 ? Math.min(step - 1, loadingSteps.length - 1) : 0;
+  const isGrimoireReady = step > loadingSteps.length;
 
   useEffect(() => {
     if (step === 0) {
@@ -474,6 +486,19 @@ function Beat4GrimoireLoad({ onComplete, onStepComplete, step }: BeatProps) {
 
   return (
     <div className="beat-grimoire">
+      {/* Three.js Animated Grimoire */}
+      {showBox && (
+        <div className="beat-grimoire__animation">
+          <GrimoireAnimation
+            loadingStep={currentLoadingStep}
+            totalSteps={loadingSteps.length}
+            isComplete={isGrimoireReady}
+            reducedMotion={prefersReducedMotion}
+          />
+        </div>
+      )}
+
+      {/* Terminal status box */}
       {showBox && (
         <TerminalBox
           title="GRIMOIRE SYSTEM"
@@ -484,7 +509,7 @@ function Beat4GrimoireLoad({ onComplete, onStepComplete, step }: BeatProps) {
           glow
         >
           <div className="grimoire-content">
-            <div className="grimoire-status">Status: ACTIVE</div>
+            <div className="grimoire-status">Status: {isGrimoireReady ? 'READY' : 'ACTIVE'}</div>
             <div className="grimoire-version">Version: ARCANE.2024.XI</div>
             <div className="grimoire-spells">Spells Registered: 0</div>
             <div className="grimoire-loading">
@@ -535,8 +560,10 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
   const failCount = runes.filter(r => r.status === 'fail').length;
 
   // Calculate progress based on completed runes (pass or fail status)
+  // Note: overallProgress is available for future use with ProgressBar
   const completedCount = passCount + failCount;
-  const overallProgress = completedCount / RUNE_CALIBRATION.length;
+  const _overallProgress = completedCount / RUNE_CALIBRATION.length;
+  void _overallProgress; // Suppress unused variable warning
 
   useEffect(() => {
     if (step === 0) {
@@ -596,12 +623,12 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
       </div>
 
       <div className="beat-runes__summary">
-        <ProgressBar
+        {/* <ProgressBar
           progress={overallProgress}
           width={25}
           label="CALIBRATION:"
           animated
-        />
+        /> */}
         <div className="beat-runes__counts">
           <span className="rune-count rune-count--pass">ALIGNED: {passCount}</span>
           <span className="rune-count rune-count--fail">FAILED: {failCount}</span>
@@ -684,16 +711,16 @@ function Beat6FinalPrep({ onComplete, onStepComplete, step }: BeatProps) {
         </div>
       )}
 
-      {showCommand && (
+      {/* {showCommand && (
         <div className="beat-final__command">
           <CommandLine
-            prompt="GRIMOIRE>"
+            prompt="SPELL REQUEST>"
             value=""
             showCursor
             blinkCursor
           />
         </div>
-      )}
+      )} */}
 
       {showFinal && (
         <div className="beat-final__initiate">

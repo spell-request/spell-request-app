@@ -18,5 +18,8 @@ export { TerminalBox, ProgressBar, CommandLine } from './TerminalBox';
 // Sasquatch portrait component (with WizardPortrait/WizardDialogue aliases for backwards compatibility)
 export { SasquatchPortrait, SasquatchDialogue, WizardPortrait, WizardDialogue } from './WizardPortrait';
 
+// Three.js Grimoire animation for Beat 4
+export { GrimoireAnimation } from './GrimoireAnimation';
+
 // ASCII art assets
 export * from './asciiArt';
