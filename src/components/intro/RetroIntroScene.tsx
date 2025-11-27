@@ -5,7 +5,7 @@
  * BEAT 1: Terminal boot sequence with system checks
  * BEAT 2: Archmage Sasquatch introduction
  * BEAT 3: Apprentice profile initialization
- * BEAT 4: Grimoire system loading
+ * BEAT 4: [SKIPPED] Grimoire system loading
  * BEAT 5: Rune calibration ritual (pass/fail checks)
  * BEAT 6: Final preparation and transition
  */
@@ -33,14 +33,14 @@ interface RetroIntroSceneProps {
 
 // Timing constants (in ms) - adjusted for readability
 const TIMING = {
-  bootMessageDelay: 800,      // Time between boot messages
-  bootMessageType: 50,        // Typing speed for boot messages
-  dialogueSpeed: 55,          // Typing speed for dialogue
-  dialoguePause: 2000,        // Pause after each dialogue line
-  systemCheckDelay: 1200,     // Time for each system check
-  runeCheckDelay: 1500,       // Time between rune checks
-  transitionDelay: 2500,      // Final transition delay
-  staticBurstDuration: 1200,  // Initial static effect
+  bootMessageDelay: 400,      // Time between boot messages (faster)
+  bootMessageType: 30,        // Typing speed for boot messages (faster)
+  dialogueSpeed: 55,          // Typing speed for dialogue (unchanged for BEAT 2)
+  dialoguePause: 3000,        // Pause after each dialogue line (unchanged for BEAT 2)
+  systemCheckDelay: 600,      // Time for each system check (faster)
+  runeCheckDelay: 800,        // Time between rune checks (faster)
+  transitionDelay: 1500,      // Final transition delay (faster)
+  staticBurstDuration: 600,   // Initial static effect (faster)
 };
 
 // RPG-style boot messages
@@ -113,6 +113,12 @@ export function RetroIntroScene({ onComplete, skip = false }: RetroIntroScenePro
     });
   }, []);
 
+  // Skip Beat 4 - advance from Beat 3 directly to Beat 5
+  const skipToBeat5 = useCallback(() => {
+    setCurrentBeat(5);
+    setBeatStep(0);
+  }, []);
+
   // Advance step within current beat
   const advanceStep = useCallback(() => {
     setBeatStep((prev) => prev + 1);
@@ -166,22 +172,13 @@ export function RetroIntroScene({ onComplete, skip = false }: RetroIntroScenePro
           {/* BEAT 3: Profile Initialization */}
           {currentBeat === 3 && (
             <Beat3ProfileInit
-              onComplete={advanceBeat}
+              onComplete={skipToBeat5}
               onStepComplete={advanceStep}
               step={beatStep}
             />
           )}
 
-          {/* BEAT 4: Grimoire System Loading */}
-          {currentBeat === 4 && (
-            <Beat4GrimoireLoad
-              onComplete={advanceBeat}
-              onStepComplete={advanceStep}
-              step={beatStep}
-            />
-          )}
-
-          {/* BEAT 5: Rune Calibration Ritual */}
+          {/* BEAT 5: Rune Calibration Ritual (Beat 4 skipped) */}
           {currentBeat === 5 && (
             <Beat5RuneCalibration
               onComplete={advanceBeat}
@@ -251,12 +248,12 @@ function Beat1BootSequence({ onComplete, onStepComplete, step }: BeatProps) {
       const timer = setTimeout(() => {
         setBootMessages((prev) => [...prev, msg]);
         // Vary timing based on message type
-        const delay = msg.status === 'blank' ? 400 : TIMING.bootMessageDelay;
+        const delay = msg.status === 'blank' ? 200 : TIMING.bootMessageDelay;
         setTimeout(onStepComplete, delay);
       }, 100);
       return () => clearTimeout(timer);
     } else {
-      setTimeout(onComplete, 1000);
+      setTimeout(onComplete, 500);
     }
   }, [step, onStepComplete, onComplete]);
 
@@ -308,7 +305,7 @@ function Beat2SasquatchIntro({ onComplete, onStepComplete, step }: BeatProps) {
   const handleMaterialize = useCallback(() => {
     setPortraitReady(true);
     // Longer pause after portrait appears before dialogue starts
-    setTimeout(onStepComplete, 2000);
+    setTimeout(onStepComplete, 3000);
   }, [onStepComplete]);
 
   // Dialogue sequence
@@ -377,7 +374,7 @@ function Beat3ProfileInit({ onComplete, onStepComplete, step }: BeatProps) {
       setShowTitle(true);
       // Initialize all checks as pending
       setSystemChecks(SYSTEM_CHECKS.map(c => ({ ...c, status: 'pending' as const })));
-      setTimeout(onStepComplete, 1200);
+      setTimeout(onStepComplete, 600);
     } else if (step > 0 && step <= SYSTEM_CHECKS.length) {
       const checkIndex = step - 1;
       // Set current check to "checking"
@@ -391,10 +388,10 @@ function Beat3ProfileInit({ onComplete, onStepComplete, step }: BeatProps) {
           i === checkIndex ? { ...c, status: 'ok' as const } : c
         ));
         setOverallProgress((step) / SYSTEM_CHECKS.length);
-        setTimeout(onStepComplete, 400);
+        setTimeout(onStepComplete, 200);
       }, TIMING.systemCheckDelay);
     } else {
-      setTimeout(onComplete, 1000);
+      setTimeout(onComplete, 500);
     }
   }, [step, onStepComplete, onComplete]);
 
@@ -441,106 +438,9 @@ function Beat3ProfileInit({ onComplete, onStepComplete, step }: BeatProps) {
   );
 }
 
-// ============================================
-// BEAT 4: Grimoire System Loading
-// Enhanced with Three.js animated spellbook
-// ============================================
-
-function Beat4GrimoireLoad({ onComplete, onStepComplete, step }: BeatProps) {
-  const [showBox, setShowBox] = useState(false);
-  const [loadingText, setLoadingText] = useState('');
-  const [showDialogue, setShowDialogue] = useState(false);
-
-  const loadingSteps = [
-    'Loading spell indices...',
-    'Parsing rune libraries...',
-    'Compiling incantation cache...',
-    'Validating grimoire checksum...',
-    'GRIMOIRE READY',
-  ];
-
-  // Check for reduced motion preference
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  }, []);
-
-  // Calculate current loading step for animation (0-indexed)
-  const currentLoadingStep = step > 0 ? Math.min(step - 1, loadingSteps.length - 1) : 0;
-  const isGrimoireReady = step > loadingSteps.length;
-
-  useEffect(() => {
-    if (step === 0) {
-      setShowBox(true);
-      setTimeout(onStepComplete, 1000);
-    } else if (step > 0 && step <= loadingSteps.length) {
-      setLoadingText(loadingSteps[step - 1]);
-      setTimeout(onStepComplete, TIMING.systemCheckDelay);
-    } else if (step === loadingSteps.length + 1) {
-      setShowDialogue(true);
-      setTimeout(onStepComplete, 4000);
-    } else {
-      setTimeout(onComplete, 800);
-    }
-  }, [step, onStepComplete, onComplete, loadingSteps.length]);
-
-  return (
-    <div className="beat-grimoire">
-      {/* Three.js Animated Grimoire */}
-      {showBox && (
-        <div className="beat-grimoire__animation">
-          <GrimoireAnimation
-            loadingStep={currentLoadingStep}
-            totalSteps={loadingSteps.length}
-            isComplete={isGrimoireReady}
-            reducedMotion={prefersReducedMotion}
-          />
-        </div>
-      )}
-
-      {/* Terminal status box */}
-      {showBox && (
-        <TerminalBox
-          title="GRIMOIRE SYSTEM"
-          width={50}
-          animate
-          delay={100}
-          variant="simple"
-          glow
-        >
-          <div className="grimoire-content">
-            <div className="grimoire-status">Status: {isGrimoireReady ? 'READY' : 'ACTIVE'}</div>
-            <div className="grimoire-version">Version: ARCANE.2024.XI</div>
-            <div className="grimoire-spells">Spells Registered: 0</div>
-            <div className="grimoire-loading">
-              {loadingText && (
-                <ASCIIText
-                  text={loadingText}
-                  speed={30}
-                  showCursor
-                />
-              )}
-            </div>
-          </div>
-        </TerminalBox>
-      )}
-
-      {showDialogue && (
-        <div className="beat-grimoire__dialogue">
-          <ASCIIText
-            text="The Grand Grimoire awaits your first spell."
-            speed={TIMING.dialogueSpeed}
-            speaker="SASQUATCH: "
-            showCursor
-          />
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ============================================
-// BEAT 5: Rune Calibration Ritual
+// BEAT 5: Rune Calibration Ritual (Beat 4 skipped)
 // ============================================
 
 function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
@@ -568,7 +468,7 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
   useEffect(() => {
     if (step === 0) {
       setShowTitle(true);
-      setTimeout(onStepComplete, 1500);
+      setTimeout(onStepComplete, 800);
     } else if (step > 0 && step <= RUNE_CALIBRATION.length * 2) {
       const runeIndex = Math.floor((step - 1) / 2);
       const isTestPhase = (step - 1) % 2 === 0;
@@ -578,7 +478,7 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
         setRunes(prev => prev.map((r, i) =>
           i === runeIndex ? { ...r, status: 'testing' as const } : r
         ));
-        setTimeout(onStepComplete, 800);
+        setTimeout(onStepComplete, 400);
       } else {
         // Result phase - determine pass/fail (65% pass rate)
         const passed = Math.random() > 0.35;
@@ -589,9 +489,9 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
       }
     } else if (step === RUNE_CALIBRATION.length * 2 + 1) {
       setShowDialogue(true);
-      setTimeout(onStepComplete, 4500);
+      setTimeout(onStepComplete, 2500);
     } else {
-      setTimeout(onComplete, 1000);
+      setTimeout(onComplete, 500);
     }
   }, [step, onStepComplete, onComplete]);
 
@@ -649,7 +549,7 @@ function Beat5RuneCalibration({ onComplete, onStepComplete, step }: BeatProps) {
                 text="You must restore balance, apprentice."
                 speed={TIMING.dialogueSpeed}
                 speaker="       "
-                delay={2000}
+                delay={3000}
                 showCursor
               />
             </>
@@ -679,15 +579,15 @@ function Beat6FinalPrep({ onComplete, onStepComplete, step }: BeatProps) {
   useEffect(() => {
     if (step === 0) {
       setShowMessage(true);
-      setTimeout(onStepComplete, 3500);
+      setTimeout(onStepComplete, 3000);
     } else if (step === 1) {
       setShowCommand(true);
-      setTimeout(onStepComplete, 2000);
+      setTimeout(onStepComplete, 1000);
     } else if (step === 2) {
       setShowFinal(true);
-      setTimeout(onStepComplete, 3000);
+      setTimeout(onStepComplete, 1500);
     } else {
-      setTimeout(onComplete, 500);
+      setTimeout(onComplete, 300);
     }
   }, [step, onStepComplete, onComplete]);
 
