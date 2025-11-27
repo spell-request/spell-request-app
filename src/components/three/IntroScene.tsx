@@ -170,7 +170,7 @@ function GrimoireTitle({ position, ready = true }: GrimoireTitleProps) {
         letterSpacing={0.25}
         font="/fonts/VT323-Regular.ttf"
       >
-        GRIMOIRE
+        SPELL REQUEST
       </Text>
 
       {/* Subtle shadow/depth effect */}
@@ -183,7 +183,7 @@ function GrimoireTitle({ position, ready = true }: GrimoireTitleProps) {
         letterSpacing={0.25}
         font="/fonts/VT323-Regular.ttf"
       >
-        GRIMOIRE
+        SPELL REQUEST
       </Text>
     </group>
   );

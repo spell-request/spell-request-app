@@ -25,7 +25,7 @@ export function TopBar() {
       <div className="top-bar__left">
         <Link to="/books" className="top-bar__logo">
           <GlowText as="span" intensity="high" pulse>
-            GRIMOIRE
+            SPELL REQUEST
           </GlowText>
         </Link>
       </div>
