@@ -181,7 +181,6 @@
   max-width: 40vh;
   object-fit: cover;
   object-position: center top;
-  border: 3px solid #00aa00;
   filter:
     sepia(20%)
     hue-rotate(70deg)
