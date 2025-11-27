@@ -51,8 +51,8 @@
 }
 
 .beat-boot__message {
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 1.3rem;
+  line-height: 1.6;
 }
 
 .beat-boot__message--info {
@@ -88,8 +88,8 @@
 }
 
 .beat-gonzo__avatar {
-  font-size: 1.4rem;
-  line-height: 1.1;
+  font-size: 1.6rem;
+  line-height: 1.15;
   animation: avatar-flicker 3s ease-in-out infinite;
 }
 
@@ -129,7 +129,7 @@
 .beat-profile__header {
   text-align: center;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .beat-profile__checks {
@@ -141,7 +141,7 @@
 
 .system-check {
   display: flex;
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: #006600;
   transition: color 0.3s ease;
 }
@@ -250,7 +250,7 @@
 .beat-runes__header {
   text-align: center;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .beat-runes__grid {
@@ -264,7 +264,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1rem;
+  font-size: 1.15rem;
   transition: all 0.3s ease;
 }
 
@@ -337,7 +337,7 @@
 }
 
 .rune-check__symbol {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   min-width: 2ch;
   text-align: center;
 }
@@ -369,7 +369,7 @@
 }
 
 .rune-count {
-  font-size: 1rem;
+  font-size: 1.15rem;
 }
 
 .rune-count--pass {
@@ -415,7 +415,7 @@
 }
 
 .beat-final__initiate .initiate-text {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   animation: initiate-glow 1s ease-in-out infinite alternate;
 }
 
@@ -484,11 +484,11 @@
   .beat-boot__message,
   .system-check,
   .rune-check {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
   }
 
   .beat-gonzo__avatar {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 
   .system-check__name {
@@ -496,7 +496,7 @@
   }
 
   .rune-check__symbol {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .beat-runes__counts {
@@ -506,7 +506,7 @@
 
 @media (max-width: 480px) {
   .beat-gonzo__avatar {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
   .system-check {
@@ -525,7 +525,7 @@
     width: 100%;
     text-align: left;
     margin-left: 3ch;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 }
 
