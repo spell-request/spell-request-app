@@ -1,0 +1,137 @@
+/**
+ * TerminalInput Styles
+ * CRT-styled terminal input with blinking cursor
+ */
+
+.terminal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.terminal-input__label {
+  font-family: 'VT323', 'Courier New', 'Consolas', monospace;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #00CC00;
+  text-shadow: 0 0 4px rgba(0, 204, 0, 0.5);
+  letter-spacing: 0.05em;
+}
+
+.terminal-input__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.terminal-input__prompt {
+  font-family: 'VT323', 'Courier New', 'Consolas', monospace;
+  font-size: 1.25rem;
+  color: #33FF33;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+  flex-shrink: 0;
+}
+
+.terminal-input__field {
+  flex: 1;
+  font-family: 'VT323', 'Courier New', 'Consolas', monospace;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #33FF33;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 4px 0;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+  caret-color: transparent; /* Hide default cursor, we use custom */
+}
+
+.terminal-input__field::placeholder {
+  color: #004400;
+  opacity: 1;
+}
+
+.terminal-input__field:focus::placeholder {
+  color: #006600;
+}
+
+.terminal-input__cursor {
+  font-family: 'VT323', 'Courier New', 'Consolas', monospace;
+  font-size: 1.25rem;
+  color: #33FF33;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+  animation: cursor-blink 1s step-end infinite;
+  position: absolute;
+  left: calc(8px + 1ch); /* Position after prompt */
+  pointer-events: none;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Error state */
+.terminal-input--error .terminal-input__label {
+  color: #FF4444;
+  text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
+}
+
+.terminal-input--error .terminal-input__prompt {
+  color: #FF4444;
+  text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
+  animation: shake 0.3s ease-in-out;
+}
+
+.terminal-input--error .terminal-input__field {
+  color: #FF4444;
+  text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
+}
+
+.terminal-input--error .terminal-input__cursor {
+  color: #FF4444;
+  text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-input__cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .terminal-input--error .terminal-input__prompt {
+    animation: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .terminal-input__label {
+    font-size: 1rem;
+  }
+
+  .terminal-input__field,
+  .terminal-input__prompt,
+  .terminal-input__cursor {
+    font-size: 1.1rem;
+  }
+}

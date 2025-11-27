@@ -1,0 +1,201 @@
+/**
+ * TerminalButton Styles
+ * Gothic/dramatic CRT button with Warhammer 40k-inspired aesthetic
+ */
+
+.terminal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'VT323', 'Courier New', 'Consolas', monospace;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: #33FF33;
+  background: transparent;
+  border: 2px solid #33FF33;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+  box-shadow:
+    0 0 10px rgba(51, 255, 51, 0.2),
+    inset 0 0 10px rgba(51, 255, 51, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-button--full-width {
+  width: 100%;
+}
+
+/* Hover state - enhanced glow and bracket animation */
+.terminal-button:hover:not(.terminal-button--disabled) {
+  border-color: #44FF44;
+  box-shadow:
+    0 0 20px rgba(51, 255, 51, 0.4),
+    inset 0 0 20px rgba(51, 255, 51, 0.2);
+  text-shadow: 0 0 8px rgba(51, 255, 51, 0.8);
+}
+
+.terminal-button:hover:not(.terminal-button--disabled) .terminal-button__bracket--left {
+  animation: chevron-march-left 0.6s ease-in-out infinite;
+}
+
+.terminal-button:hover:not(.terminal-button--disabled) .terminal-button__bracket--right {
+  animation: chevron-march-right 0.6s ease-in-out infinite;
+}
+
+/* Focus state */
+.terminal-button:focus-visible {
+  outline: none;
+  border-color: #55FF55;
+  box-shadow:
+    0 0 30px rgba(51, 255, 51, 0.6),
+    inset 0 0 20px rgba(51, 255, 51, 0.3);
+}
+
+/* Active/pressed state */
+.terminal-button:active:not(.terminal-button--disabled) {
+  transform: scale(0.98);
+  box-shadow:
+    0 0 15px rgba(51, 255, 51, 0.3),
+    inset 0 0 15px rgba(51, 255, 51, 0.4);
+}
+
+/* Loading state */
+.terminal-button--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.terminal-button--loading .terminal-button__bracket {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.terminal-button--loading .terminal-button__text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Disabled state */
+.terminal-button--disabled {
+  color: #004400;
+  border-color: #004400;
+  cursor: not-allowed;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/* Bracket styling */
+.terminal-button__bracket {
+  font-weight: bold;
+  letter-spacing: -0.05em;
+}
+
+.terminal-button__bracket--left {
+  display: inline-block;
+}
+
+.terminal-button__bracket--right {
+  display: inline-block;
+}
+
+/* Text styling */
+.terminal-button__text {
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Secondary variant (for future use) */
+.terminal-button--secondary {
+  border-color: #00AA00;
+  color: #00AA00;
+  text-shadow: 0 0 4px rgba(0, 170, 0, 0.5);
+  box-shadow:
+    0 0 10px rgba(0, 170, 0, 0.2),
+    inset 0 0 10px rgba(0, 170, 0, 0.1);
+}
+
+.terminal-button--secondary:hover:not(.terminal-button--disabled) {
+  border-color: #00CC00;
+  box-shadow:
+    0 0 20px rgba(0, 170, 0, 0.4),
+    inset 0 0 20px rgba(0, 170, 0, 0.2);
+}
+
+/* Animations */
+@keyframes chevron-march-left {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes chevron-march-right {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Scanline effect on hover (subtle) */
+.terminal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(51, 255, 51, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.terminal-button:hover:not(.terminal-button--disabled)::before {
+  left: 100%;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-button,
+  .terminal-button__bracket,
+  .terminal-button__text {
+    animation: none !important;
+    transition: none;
+  }
+
+  .terminal-button::before {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .terminal-button {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    gap: 8px;
+  }
+
+  .terminal-button__bracket {
+    font-size: 1rem;
+  }
+}
